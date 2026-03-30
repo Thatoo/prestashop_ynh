@@ -29,7 +29,6 @@ ynh_script_progression "Installing Composer..."
 composer_version="2.9.5"
 
 ynh_composer_install
-ynh_composer_exec install --no-dev
 
 ynh_script_progression "Create release..."
 #pushd "$install_dir/PrestaShop"
