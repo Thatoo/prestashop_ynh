@@ -17,9 +17,9 @@ ynh_script_progression "Setting up source files..."
 
 #ynh_setup_source --dest_dir="$install_dir"
 
-git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git $install_dir
+git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git $install_dir/PrestaShop
 
-chown $app:www-data $install_dir
+chown $app:www-data -R $install_dir/PrestaShop
 
 #=================================================
 # INSTALL COMPOSER
@@ -29,6 +29,7 @@ ynh_script_progression "Installing Composer..."
 composer_version="2.9.5"
 
 ynh_composer_install
+ynh_composer_exec install --no-dev
 
 ynh_script_progression "Create release..."
 #pushd "$install_dir/PrestaShop"
