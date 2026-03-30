@@ -17,6 +17,21 @@ ynh_script_progression "Setting up source files..."
 
 ynh_setup_source --dest_dir="$install_dir"
 
+git clone https://github.com/PrestaShop/PrestaShop/tree/9.1.0-build $install_dir
+
+chown $app:www-data $install_dir
+
+#=================================================
+# INSTALL COMPOSER
+#=================================================
+ynh_script_progression "Installing Composer..."
+
+ynh_composer_install
+
+pushd "$install_dir/PrestaShop"
+  ynh_exec_as_app php tools/build/CreateRelease.php
+popd
+
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
