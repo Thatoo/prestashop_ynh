@@ -26,8 +26,6 @@ chown $app:www-data -R $install_dir/PrestaShop
 #=================================================
 ynh_script_progression "Installing Composer..."
 
-composer_version="2.9.5"
-
 ynh_composer_install
 mkdir $install_dir/bin
 cp composer.phar bin/composer
