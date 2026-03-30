@@ -28,9 +28,10 @@ ynh_script_progression "Installing Composer..."
 
 ynh_composer_install
 
-pushd "$install_dir/PrestaShop"
-  ynh_exec_as_app php tools/build/CreateRelease.php
-popd
+ynh_script_progression "Create release..."
+#pushd "$install_dir/PrestaShop"
+#  ynh_exec_as_app php tools/build/CreateRelease.php
+#popd
 
 #=================================================
 # SYSTEM CONFIGURATION
