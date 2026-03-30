@@ -17,7 +17,7 @@ ynh_script_progression "Setting up source files..."
 
 #ynh_setup_source --dest_dir="$install_dir"
 
-git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git 
+git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git $install_dir
 
 chown $app:www-data $install_dir
 
