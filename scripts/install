@@ -26,6 +26,8 @@ chown $app:www-data $install_dir
 #=================================================
 ynh_script_progression "Installing Composer..."
 
+composer_version="2.9.5"
+
 ynh_composer_install
 
 ynh_script_progression "Create release..."
