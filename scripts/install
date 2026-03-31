@@ -29,7 +29,6 @@ export PATH="$install_dir/bin:$PATH"
 ynh_script_progression "Setting up source files..."
 
 git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git $install_dir/PrestaShop
-
 chown $app:www-data -R $install_dir/PrestaShop
 
 #=================================================
@@ -38,9 +37,11 @@ chown $app:www-data -R $install_dir/PrestaShop
 pushd "$install_dir"
   ynh_script_progression "Build Prestashop's release..."
   ynh_exec_as_app php PrestaShop/tools/build/CreateRelease.php --no-zip --destination-dir="$install_dir"
+
   ynh_script_progression "Copy files to the instalation folder"
   ynh_exec_as_app cp -r $install_dir/prestashop/* $install_dir/
   ynh_exec_as_app cp -r $install_dir/prestashop/.* $install_dir/
+
   ynh_script_progression "Clean temporary building files"
   ynh_safe_rm $install_dir/PrestaShop
   ynh_safe_rm $install_dir/prestashop
