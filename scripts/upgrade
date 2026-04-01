@@ -11,42 +11,19 @@ ynh_app_setting_set_default --key=php_upload_max_filesize --value=1G
 ynh_app_setting_set_default --key=php_memory_limit --value=512M
 ynh_app_setting_set_default --key=php_max_execution_time --value=60
 
-#=================================================
-# INSTALL COMPOSER
-#=================================================
-ynh_script_progression "Installing Composer..."
-
-ynh_composer_install
-mv $install_dir/composer.phar $install_dir/bin/composer
-chown $app:www-data -R $install_dir/bin
-chmod +x $install_dir/bin/composer
-echo "PATH=$install_dir/bin:\$PATH" >> $install_dir/.bashrc
-export PATH="$install_dir/bin:$PATH"
 
 #=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-ynh_script_progression "Setting up source files..."
-
-git clone --single-branch --branch 9.1.0-build https://github.com/PrestaShop/PrestaShop.git $install_dir/PrestaShop
-chown $app:www-data -R $install_dir/PrestaShop
-
-#=================================================
-# Build Prestashop's Release and install
+# Upgrade Prestashop
 #=================================================
 pushd "$install_dir"
-  ynh_script_progression "Build Prestashop's release..."
-  ynh_exec_as_app php PrestaShop/tools/build/CreateRelease.php --no-zip --destination-dir="$install_dir"
-
-  ynh_script_progression "Copy files to the instalation folder"
-  ynh_exec_as_app cp -r $install_dir/prestashop/* $install_dir/
-  ynh_exec_as_app cp -r $install_dir/prestashop/.* $install_dir/
-
-  ynh_script_progression "Clean temporary building files"
-  ynh_safe_rm $install_dir/PrestaShop
-  ynh_safe_rm $install_dir/prestashop
-  ynh_safe_rm $install_dir/prestashop_*.xml
+  ynh_script_progression "Install autoupgrade module..."
+  php $install_dir/bin/console prestashop:module install autoupgrade
+  cd $install_dir/modules/autoupgrade
+  ynh_script_progression "Install autoupgrade module..."
+  admin_dir=$(ls | grep admin)
+  php bin/console update:start --channel=online $admin_dir
 popd
+
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
