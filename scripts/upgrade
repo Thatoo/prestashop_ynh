@@ -16,7 +16,7 @@ ynh_app_setting_set_default --key=php_max_execution_time --value=60
 #=================================================
 pushd "$install_dir"
   ynh_script_progression "Install autoupgrade module..."
-  php $install_dir/bin/console prestashop:module install autoupgrade
+  php8.3 $install_dir/bin/console prestashop:module install autoupgrade
   cd $install_dir/modules/autoupgrade
   ynh_script_progression "Install autoupgrade module..."
   admin_dir=$(ls | grep admin)
