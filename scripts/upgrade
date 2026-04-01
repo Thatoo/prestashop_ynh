@@ -17,7 +17,6 @@ ynh_app_setting_set_default --key=php_max_execution_time --value=60
 ynh_script_progression "Installing Composer..."
 
 ynh_composer_install
-mkdir $install_dir/bin
 mv $install_dir/composer.phar $install_dir/bin/composer
 chown $app:www-data -R $install_dir/bin
 chmod +x $install_dir/bin/composer
