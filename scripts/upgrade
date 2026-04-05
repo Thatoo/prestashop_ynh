@@ -15,7 +15,7 @@ ynh_app_setting_set_default --key=php_max_execution_time --value=60
 # Upgrade Prestashop
 #=================================================
 pushd "$install_dir"
-  admin_dir=$(ls | grep admin)
+  admin_dir=$(ls | grep admin | grep -ve admin-api)
   ynh_script_progression "Install autoupgrade module..."
   php $install_dir/bin/console prestashop:module install autoupgrade
   ynh_script_progression "upgrade..."
